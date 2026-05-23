@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const pages = await getCollection('pages');
+const aboutEntry = pages.find((p) => p.id === 'about');
+let Content;
+let data;
+
+if (aboutEntry) {
+  const rendered = await render(aboutEntry);
+  Content = rendered.Content;
+  data = aboutEntry.data;
+}
+---
+
+<BaseLayout title={data?.title ?? 'Sobre Adancestro'} description="Conoce al luthier detrás de Adancestro Guitarras.">
+  <section class="pt-32 pb-20">
+    <div class="container max-w-3xl">
+      <h1 class="font-heading text-4xl md:text-5xl text-cream">{data?.title ?? 'Sobre mí'}</h1>
+      {Content && (
+        <div class="mt-10 prose prose-invert prose-cream text-lg leading-relaxed">
+          <Content />
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

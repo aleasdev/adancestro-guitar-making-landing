@@ -1,0 +1,76 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: guitars
+    label: Guitarras
+    label_singular: Guitarra
+    folder: src/content/guitars
+    create: true
+    preview_path: "/guitars/{{slug}}"
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Descripción, name: description, widget: text }
+      - { label: Fecha, name: date, widget: datetime }
+      - label: Especificaciones
+        name: specs
+        widget: object
+        fields:
+          - { label: Modelo, name: model, widget: string }
+          - { label: Tapa, name: topWood, widget: string }
+          - { label: Fondo y Aros, name: backSides, widget: string }
+          - { label: Mástil, name: neck, widget: string }
+          - { label: Diapasón, name: fingerboard, widget: string }
+          - { label: Año, name: year, widget: number }
+      - { label: Imágenes, name: images, widget: image, multiple: true, media_folder: "/public/images/guitars", public_folder: "/images/guitars" }
+      - { label: Destacado, name: featured, widget: boolean, required: false, default: false }
+
+  - name: workshop
+    label: Taller
+    label_singular: Entrada de taller
+    folder: src/content/workshop
+    create: true
+    preview_path: "/workshop/{{slug}}"
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Descripción, name: description, widget: text }
+      - { label: Fecha, name: date, widget: datetime }
+      - { label: Imágenes, name: images, widget: image, multiple: true, media_folder: "/public/images/workshop", public_folder: "/images/workshop" }
+      - { label: Etiquetas, name: tags, widget: list, required: false }
+
+  - name: courses
+    label: Cursos
+    label_singular: Curso
+    folder: src/content/courses
+    create: true
+    preview_path: "/courses/{{slug}}"
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Descripción, name: description, widget: text }
+      - { label: Fecha, name: date, widget: datetime }
+      - { label: Imagen, name: image, widget: image, media_folder: "/public/images/courses", public_folder: "/images/courses" }
+      - { label: Detalles, name: details, widget: markdown }
+      - { label: Duración, name: duration, widget: string, required: false }
+      - { label: Precio, name: price, widget: string, required: false }
+
+  - name: pages
+    label: Páginas
+    folder: src/content/pages
+    create: false
+    files:
+      - label: Acerca de
+        name: about
+        file: src/content/pages/about.md
+        fields:
+          - { label: Título, name: title, widget: string }
+          - { label: Contenido, name: body, widget: markdown }
+      - label: Contacto
+        name: contact
+        file: src/content/pages/contact.md
+        fields:
+          - { label: Título, name: title, widget: string }
+          - { label: Contenido, name: body, widget: markdown }

@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  image?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  fullHeight?: boolean;
+}
+
+const { title, subtitle, image, ctaText, ctaLink, fullHeight } = Astro.props;
+---
+
+<section class={`relative flex items-center justify-center overflow-hidden ${fullHeight ? 'min-h-screen' : 'h-[70vh]'}`}>
+  {image ? (
+    <img
+      src={image}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+  ) : (
+    <div class="absolute inset-0 bg-gradient-to-br from-charcoal via-charcoal to-warm-brown/20" />
+  )}
+  <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-transparent" />
+  <div class="relative z-10 text-center container max-w-3xl px-4">
+    <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-cream leading-tight">
+      {title}
+    </h1>
+    {subtitle && (
+      <p class="mt-4 text-lg md:text-xl text-cream/70 font-light max-w-xl mx-auto">
+        {subtitle}
+      </p>
+    )}
+    {ctaText && ctaLink && (
+      <a
+        href={ctaLink}
+        class="inline-block mt-8 px-8 py-3 bg-amber text-charcoal font-semibold text-sm uppercase tracking-widest hover:bg-amber/90 transition-all"
+      >
+        {ctaText}
+      </a>
+    )}
+  </div>
+</section>

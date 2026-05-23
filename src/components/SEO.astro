@@ -1,0 +1,22 @@
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+const siteTitle = title ? `${title} | Adancestro Guitarras` : 'Adancestro Guitarras';
+const desc = description ?? 'Luthería artesanal. Guitarras clásicas y flamencas hechas a mano.';
+const fontUrl = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap';
+
+<meta charset="utf-8" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{siteTitle}</title>
+<meta name="description" content={desc} />
+<meta property="og:title" content={siteTitle} />
+<meta property="og:description" content={desc} />
+{image && <meta property="og:image" content={image} />}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href={fontUrl} rel="stylesheet" />

@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SpecsTable from '../../components/SpecsTable.astro';
+import Lightbox from '../../components/Lightbox.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const guitars = await getCollection('guitars');
+  return guitars.map((g) => ({
+    params: { slug: g.id },
+    props: { entry: g },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+---
+
+<BaseLayout title={data.title} description={data.description} image={data.images?.[0]}>
+  <section class="pt-32 pb-20">
+    <div class="container">
+      <a href="/guitars" class="inline-flex items-center gap-2 text-cream/50 hover:text-amber text-sm transition-colors mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver a guitarras
+      </a>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          {data.images && data.images.length > 0 ? (
+            <Lightbox images={data.images} alt={data.title} />
+          ) : (
+            <div class="aspect-[4/3] bg-white/5 rounded-sm flex items-center justify-center text-cream/40">
+              Sin imágenes
+            </div>
+          )}
+        </div>
+        <div>
+          <h1 class="font-heading text-3xl md:text-4xl text-cream">{data.title}</h1>
+          <p class="mt-4 text-cream/60 leading-relaxed">{data.description}</p>
+          <div class="mt-8">
+            <h2 class="text-xs uppercase tracking-widest text-cream/40 mb-4">Especificaciones</h2>
+            <SpecsTable specs={data.specs} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Lightbox from '../../components/Lightbox.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('workshop');
+  return entries.map((e) => ({
+    params: { slug: e.id },
+    props: { entry: e },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={data.title} description={data.description} image={data.images?.[0]}>
+  <section class="pt-32 pb-20">
+    <div class="container max-w-4xl">
+      <a href="/workshop" class="inline-flex items-center gap-2 text-cream/50 hover:text-amber text-sm transition-colors mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver al taller
+      </a>
+
+      <article>
+        <h1 class="font-heading text-3xl md:text-4xl text-cream">{data.title}</h1>
+        <time class="block mt-2 text-sm text-cream/40">
+          {new Intl.DateTimeFormat('es-ES', { dateStyle: 'long' }).format(data.date)}
+        </time>
+
+        <p class="mt-6 text-cream/60 leading-relaxed text-lg">{data.description}</p>
+
+        {data.images && data.images.length > 0 && (
+          <div class="mt-10">
+            <Lightbox images={data.images} alt={data.title} />
+          </div>
+        )}
+
+        <div class="mt-10 prose prose-invert prose-cream max-w-none">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

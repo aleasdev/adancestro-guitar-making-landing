@@ -1,0 +1,38 @@
+<header class="fixed top-0 left-0 right-0 z-50 bg-charcoal/90 backdrop-blur-sm border-b border-white/5">
+  <nav class="container flex items-center justify-between h-16 md:h-20">
+    <a href="/" class="font-heading text-xl font-bold tracking-wide text-amber hover:text-cream transition-colors">
+      Adancestro
+    </a>
+    <ul class="hidden md:flex items-center gap-8 text-sm uppercase tracking-widest">
+      <li><a href="/" class="text-cream/70 hover:text-amber transition-colors">Inicio</a></li>
+      <li><a href="/guitars" class="text-cream/70 hover:text-amber transition-colors">Guitarras</a></li>
+      <li><a href="/workshop" class="text-cream/70 hover:text-amber transition-colors">Taller</a></li>
+      <li><a href="/courses" class="text-cream/70 hover:text-amber transition-colors">Cursos</a></li>
+      <li><a href="/about" class="text-cream/70 hover:text-amber transition-colors">Sobre mí</a></li>
+      <li><a href="/contact" class="text-cream/70 hover:text-amber transition-colors">Contacto</a></li>
+    </ul>
+    <button id="menu-toggle" class="md:hidden text-cream p-2" aria-label="Menú">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+  <div id="mobile-menu" class="hidden md:hidden bg-charcoal border-t border-white/5">
+    <ul class="container py-4 space-y-4 text-sm uppercase tracking-widest">
+      <li><a href="/" class="block text-cream/70 hover:text-amber transition-colors">Inicio</a></li>
+      <li><a href="/guitars" class="block text-cream/70 hover:text-amber transition-colors">Guitarras</a></li>
+      <li><a href="/workshop" class="block text-cream/70 hover:text-amber transition-colors">Taller</a></li>
+      <li><a href="/courses" class="block text-cream/70 hover:text-amber transition-colors">Cursos</a></li>
+      <li><a href="/about" class="block text-cream/70 hover:text-amber transition-colors">Sobre mí</a></li>
+      <li><a href="/contact" class="block text-cream/70 hover:text-amber transition-colors">Contacto</a></li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+</script>

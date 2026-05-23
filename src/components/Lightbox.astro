@@ -1,0 +1,102 @@
+---
+interface Props {
+  images: string[];
+  alt?: string;
+}
+
+const { images, alt = 'Imagen' } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="lightbox-grid">
+  {images.map((img, i) => (
+    <button
+      class="group aspect-[4/3] overflow-hidden bg-white/5 rounded-sm cursor-pointer"
+      data-index={i}
+      onclick={`openLightbox(${i})`}
+    >
+      <img
+        src={img}
+        alt={`${alt} ${i + 1}`}
+        class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
+    </button>
+  ))}
+</div>
+
+<div id="lightbox-overlay" class="fixed inset-0 z-[100] bg-black/95 hidden items-center justify-center" onclick="closeLightbox(event)">
+  <button id="lightbox-close" class="absolute top-4 right-4 text-cream/60 hover:text-cream z-10" onclick="closeLightbox()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <button id="lightbox-prev" class="absolute left-4 text-cream/60 hover:text-cream" onclick="prevImage()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <img id="lightbox-img" class="max-w-[90vw] max-h-[90vh] object-contain" alt="" />
+  <button id="lightbox-next" class="absolute right-4 text-cream/60 hover:text-cream" onclick="nextImage()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+  <div id="lightbox-counter" class="absolute bottom-4 text-cream/50 text-sm"></div>
+</div>
+
+<script>
+  const imageList = document.querySelectorAll('#lightbox-grid button img');
+  const images = Array.from(imageList).map((img) => (img as HTMLImageElement).src);
+  let currentIndex = 0;
+
+  function getOverlay() {
+    return document.getElementById('lightbox-overlay');
+  }
+
+  function getImg() {
+    return document.getElementById('lightbox-img') as HTMLImageElement | null;
+  }
+
+  function getCounter() {
+    return document.getElementById('lightbox-counter');
+  }
+
+  (window as any).openLightbox = function (index: number) {
+    currentIndex = index;
+    const overlay = getOverlay();
+    const img = getImg();
+    const counter = getCounter();
+    if (!overlay || !img || !counter) return;
+
+    img.src = images[currentIndex];
+    counter.textContent = `${currentIndex + 1} / ${images.length}`;
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  };
+
+  (window as any).closeLightbox = function (e?: MouseEvent) {
+    if (e && (e.target as HTMLElement) !== e.currentTarget && (e.target as HTMLElement).id !== 'lightbox-close') return;
+    const overlay = getOverlay();
+    if (!overlay) return;
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+    document.body.style.overflow = '';
+  };
+
+  (window as any).prevImage = function () {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    const img = getImg();
+    const counter = getCounter();
+    if (img) img.src = images[currentIndex];
+    if (counter) counter.textContent = `${currentIndex + 1} / ${images.length}`;
+  };
+
+  (window as any).nextImage = function () {
+    currentIndex = (currentIndex + 1) % images.length;
+    const img = getImg();
+    const counter = getCounter();
+    if (img) img.src = images[currentIndex];
+    if (counter) counter.textContent = `${currentIndex + 1} / ${images.length}`;
+  };
+
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape') (window as any).closeLightbox();
+    if (e.key === 'ArrowLeft') (window as any).prevImage();
+    if (e.key === 'ArrowRight') (window as any).nextImage();
+  });
+</script>

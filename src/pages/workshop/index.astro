@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GalleryGrid from '../../components/GalleryGrid.astro';
+import { getCollection } from 'astro:content';
+
+const entries = (await getCollection('workshop')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const gridItems = entries.map((e) => ({
+  slug: e.id,
+  title: e.data.title,
+  image: e.data.images?.[0],
+  date: e.data.date,
+}));
+---
+
+<BaseLayout title="Taller" description="Detrás de escena del taller de luthería.">
+  <section class="pt-32 pb-20">
+    <div class="container">
+      <h1 class="font-heading text-4xl md:text-5xl text-cream">Taller</h1>
+      <p class="mt-4 text-cream/50 text-lg max-w-2xl">
+        Un vistazo al proceso de construcción, las herramientas y los momentos que
+        dan vida a cada guitarra.
+      </p>
+      <div class="mt-12">
+        <GalleryGrid items={gridItems} basePath="workshop" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

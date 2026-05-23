@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const courses = (await getCollection('courses')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout title="Cursos" description="Aprende luthería. Cursos de construcción de guitarras artesanales.">
+  <section class="pt-32 pb-20">
+    <div class="container">
+      <h1 class="font-heading text-4xl md:text-5xl text-cream">Cursos</h1>
+      <p class="mt-4 text-cream/50 text-lg max-w-2xl">
+        Aprende el arte de la construcción de guitarras desde cero, guiado por un luthier con experiencia.
+      </p>
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+        {courses.map((course) => (
+          <a
+            href={`/courses/${course.id}`}
+            class="group block bg-white/5 rounded-sm overflow-hidden hover:bg-white/10 transition-colors"
+          >
+            <div class="aspect-[16/9] overflow-hidden">
+              <img
+                src={course.data.image}
+                alt={course.data.title}
+                class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-6">
+              <h2 class="font-heading text-xl text-cream group-hover:text-amber transition-colors">
+                {course.data.title}
+              </h2>
+              <p class="mt-2 text-cream/50 text-sm leading-relaxed">{course.data.description}</p>
+              <div class="mt-4 flex items-center gap-4 text-xs text-cream/40">
+                {course.data.duration && <span>{course.data.duration}</span>}
+                {course.data.price && <span>{course.data.price}</span>}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

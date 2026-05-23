@@ -1,0 +1,34 @@
+---
+interface Props {
+  specs: {
+    model: string;
+    topWood: string;
+    backSides: string;
+    neck: string;
+    fingerboard: string;
+    year: number;
+  };
+}
+
+const { specs } = Astro.props;
+
+const rows = [
+  { label: 'Modelo', value: specs.model },
+  { label: 'Tapa', value: specs.topWood },
+  { label: 'Fondo y Aros', value: specs.backSides },
+  { label: 'Mástil', value: specs.neck },
+  { label: 'Diapasón', value: specs.fingerboard },
+  { label: 'Año', value: String(specs.year) },
+];
+---
+
+<table class="w-full text-sm">
+  <tbody>
+    {rows.map((row) => (
+      <tr class="border-b border-white/5">
+        <td class="py-3 pr-4 text-cream/50 uppercase tracking-wider text-xs w-1/3">{row.label}</td>
+        <td class="py-3 text-cream/80">{row.value}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>

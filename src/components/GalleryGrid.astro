@@ -1,0 +1,56 @@
+---
+interface Card {
+  slug: string;
+  title: string;
+  image?: string;
+  subtitle?: string;
+  date?: Date;
+}
+
+interface Props {
+  items: Card[];
+  basePath: string;
+  columns?: 2 | 3;
+}
+
+const { items, basePath, columns = 3 } = Astro.props;
+const gridCols = columns === 2 ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3';
+---
+
+{
+  items.length > 0 ? (
+    <div class={`grid grid-cols-1 ${gridCols} gap-6`}>
+      {items.map((item) => (
+        <a href={`/${basePath}/${item.slug}`} class="group block overflow-hidden bg-white/5 rounded-sm">
+          <div class="aspect-[4/3] overflow-hidden">
+            {item.image ? (
+              <img
+                src={item.image}
+                alt={item.title}
+                class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center bg-warm-brown/20 text-cream/40 text-sm">
+                Sin imagen
+              </div>
+            )}
+          </div>
+          <div class="p-4">
+            <h3 class="font-heading text-lg text-cream group-hover:text-amber transition-colors">
+              {item.title}
+            </h3>
+            {item.subtitle && (
+              <p class="mt-1 text-sm text-cream/50">{item.subtitle}</p>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  ) : (
+    <div class="text-center py-20 text-cream/40">
+      <p class="text-lg">No hay contenido disponible aún.</p>
+      <p class="text-sm mt-2">Pronto habrá novedades aquí.</p>
+    </div>
+  )
+}
