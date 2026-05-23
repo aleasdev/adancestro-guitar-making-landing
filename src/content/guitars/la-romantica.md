@@ -10,9 +10,9 @@ specs:
   fingerboard: "Ébano"
   year: 2024
 images:
-  - "/images/guitars/la-romantica-1.jpg"
-  - "/images/guitars/la-romantica-2.jpg"
-  - "/images/guitars/la-romantica-3.jpg"
+  - "/images/guitars/la-romantica-1.svg"
+  - "/images/guitars/la-romantica-2.svg"
+  - "/images/guitars/la-romantica-3.svg"
 featured: true
 ---
 

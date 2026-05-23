@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://adancestro-guitarras.com',
+  site: 'https://lutheria-adancestro.netlify.app/',
   vite: {
     plugins: [tailwindcss()]
   }

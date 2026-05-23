@@ -10,8 +10,8 @@ specs:
   fingerboard: "Palisandro"
   year: 2024
 images:
-  - "/images/guitars/flamenca-alegria-1.jpg"
-  - "/images/guitars/flamenca-alegria-2.jpg"
+  - "/images/guitars/flamenca-alegria-1.svg"
+  - "/images/guitars/flamenca-alegria-2.svg"
 featured: true
 ---
 
