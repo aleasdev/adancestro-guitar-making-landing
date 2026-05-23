@@ -23,8 +23,8 @@ const desc = description ?? 'Luthería artesanal. Guitarras clásicas y flamenca
     {image && <meta property="og:image" content={image} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.init();
       }
