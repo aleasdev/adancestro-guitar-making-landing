@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('instruments');
+  return entries.map((e) => ({
+    params: { slug: e.id },
+    props: { entry: e },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={data.title} description={data.description} image={data.images?.[0]}>
+  <section class="pt-32 pb-20">
+    <div class="container max-w-4xl">
+      <a href="/instruments" class="inline-flex items-center gap-2 text-cream/50 hover:text-amber text-sm transition-colors mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver a instrumentos
+      </a>
+
+      <article>
+        <span class="text-xs uppercase tracking-widest text-amber/60">{data.type}</span>
+        <h1 class="font-heading text-3xl md:text-4xl text-cream mt-2">{data.title}</h1>
+
+        {data.images && data.images.length > 0 && (
+          <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {data.images.map((img: string) => (
+              <div class="aspect-[4/3] overflow-hidden bg-white/5 rounded-sm">
+                <img src={img} alt={data.title} class="w-full h-full object-cover" loading="lazy" />
+              </div>
+            ))}
+          </div>
+        )}
+
+        <p class="mt-8 text-cream/60 leading-relaxed text-lg">{data.description}</p>
+
+        <div class="mt-6 p-6 bg-white/5 rounded-sm border border-white/5">
+          <h2 class="text-xs uppercase tracking-widest text-amber/60 mb-3">Materiales</h2>
+          <p class="text-cream/70">{data.materials}</p>
+        </div>
+
+        <div class="mt-10 prose prose-invert prose-cream max-w-none">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InstrumentCard from '../../components/InstrumentCard.astro';
+import { getCollection } from 'astro:content';
+
+const instruments = (await getCollection('instruments')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout title="Instrumentos" description="Charangos, cuatro venezolano, cajones peruanos y ronrocos construidos a mano.">
+  <section class="pt-32 pb-20">
+    <div class="container">
+      <h1 class="font-heading text-4xl md:text-5xl text-cream">Otros Instrumentos</h1>
+      <p class="mt-4 text-cream/50 text-lg max-w-2xl">
+        Además de guitarras, en el taller construimos charangos, cuatro venezolano,
+        cajones peruanos y ronrocos. Cada pieza única, hecha a mano.
+      </p>
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {instruments.map((inst) => <InstrumentCard instrument={inst} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

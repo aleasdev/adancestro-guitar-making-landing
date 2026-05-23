@@ -16,6 +16,20 @@ const guitars = defineCollection({
       fingerboard: z.string(),
       year: z.number(),
     }),
+    woodNotes: z.string().optional(),
+    images: z.array(z.string()),
+    featured: z.boolean().optional().default(false),
+  }),
+});
+
+const instruments = defineCollection({
+  loader: glob({ base: './src/content/instruments', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    type: z.string(),
+    materials: z.string(),
     images: z.array(z.string()),
     featured: z.boolean().optional().default(false),
   }),
@@ -42,6 +56,7 @@ const courses = defineCollection({
     details: z.string(),
     price: z.string().optional(),
     duration: z.string().optional(),
+    benefits: z.array(z.string()).optional(),
   }),
 });
 
@@ -53,4 +68,4 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { guitars, workshop, courses, pages };
+export const collections = { guitars, instruments, workshop, courses, pages };

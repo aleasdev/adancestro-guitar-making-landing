@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  instrument: CollectionEntry<'instruments'>;
+}
+
+const { instrument } = Astro.props;
+const { data, id } = instrument;
+const firstImage = data.images?.[0];
+---
+
+<a href={`/instruments/${id}`} class="group block overflow-hidden bg-white/5 rounded-sm">
+  <div class="aspect-[4/3] overflow-hidden">
+    {firstImage ? (
+      <img
+        src={firstImage}
+        alt={data.title}
+        class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+        loading="lazy"
+      />
+    ) : (
+      <div class="w-full h-full flex items-center justify-center bg-warm-brown/20 text-cream/40 text-sm">
+        Sin imagen
+      </div>
+    )}
+  </div>
+  <div class="p-4">
+    <span class="text-xs uppercase tracking-widest text-amber/60">{data.type}</span>
+    <h3 class="font-heading text-lg text-cream group-hover:text-amber transition-colors">
+      {data.title}
+    </h3>
+    <p class="mt-1 text-sm text-cream/50 truncate">{data.description}</p>
+  </div>
+</a>

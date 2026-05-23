@@ -26,7 +26,23 @@ collections:
           - { label: Mástil, name: neck, widget: string }
           - { label: Diapasón, name: fingerboard, widget: string }
           - { label: Año, name: year, widget: number }
+      - { label: Notas sobre maderas, name: woodNotes, widget: text, required: false, hint: "Describe cómo contribuye cada madera al sonido del instrumento" }
       - { label: Imágenes, name: images, widget: image, multiple: true, media_folder: "/public/images/guitars", public_folder: "/images/guitars" }
+      - { label: Destacado, name: featured, widget: boolean, required: false, default: false }
+
+  - name: instruments
+    label: Otros Instrumentos
+    label_singular: Instrumento
+    folder: src/content/instruments
+    create: true
+    preview_path: "/instruments/{{slug}}"
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Descripción, name: description, widget: text }
+      - { label: Fecha, name: date, widget: datetime }
+      - { label: Tipo, name: type, widget: select, options: ["Charango", "Cuatro Venezolano", "Cajón Peruano", "Ronroco", "Otro"] }
+      - { label: Materiales, name: materials, widget: text }
+      - { label: Imágenes, name: images, widget: image, multiple: true, media_folder: "/public/images/instruments", public_folder: "/images/instruments" }
       - { label: Destacado, name: featured, widget: boolean, required: false, default: false }
 
   - name: workshop
@@ -56,6 +72,7 @@ collections:
       - { label: Detalles, name: details, widget: markdown }
       - { label: Duración, name: duration, widget: string, required: false }
       - { label: Precio, name: price, widget: string, required: false }
+      - { label: Beneficios, name: benefits, widget: list, required: false }
 
   - name: pages
     label: Páginas

@@ -2,14 +2,19 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import GuitarCard from '../components/GuitarCard.astro';
+import InstrumentCard from '../components/InstrumentCard.astro';
 import { getCollection } from 'astro:content';
 
 const featuredGuitars = (await getCollection('guitars'))
   .filter((g) => g.data.featured)
   .slice(0, 3);
+
+const featuredInstruments = (await getCollection('instruments'))
+  .filter((i) => i.data.featured)
+  .slice(0, 3);
 ---
 
-<BaseLayout title="Inicio" description="Luthería artesanal. Guitarras clásicas y flamencas hechas a mano por Adancestro.">
+<BaseLayout title="Inicio" description="Luthería artesanal. Guitarras clásicas y flamencas hechas a mano por Adancestro en Iquique.">
   <Hero
     title="Adancestro"
     subtitle="Guitarras clásicas y flamencas hechas a mano, con pasión"
@@ -35,27 +40,48 @@ const featuredGuitars = (await getCollection('guitars'))
     </div>
   </section>
 
-  <section class="bg-white/5 py-20">
-    <div class="container text-center max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-cream">El arte de la luthería</h2>
-      <p class="mt-6 text-cream/60 leading-relaxed text-lg font-light">
-        Detrás de cada guitarra hay horas de dedicación, el canto de la gubia sobre la madera,
-        el aroma del barniz y la emoción del primer acorde. Te invito a conocer mi taller
-        y el proceso de creación de cada instrumento.
-      </p>
-      <a href="/workshop" class="inline-block mt-8 px-8 py-3 border border-amber text-amber text-sm uppercase tracking-widest hover:bg-amber hover:text-charcoal transition-all">
-        Ver el taller
-      </a>
-    </div>
+  {featuredInstruments.length > 0 && (
+    <section class="bg-white/5 py-20">
+      <div class="container">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <h2 class="font-heading text-3xl md:text-4xl text-cream">Otros instrumentos</h2>
+          <p class="mt-4 text-cream/50 text-lg font-light">
+            Charangos, cuatro venezolano, cajones peruanos y ronrocos hechos a mano
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {featuredInstruments.map((inst) => <InstrumentCard instrument={inst} />)}
+        </div>
+        <div class="text-center mt-10">
+          <a href="/instruments" class="inline-block px-8 py-3 border border-amber text-amber text-sm uppercase tracking-widest hover:bg-amber hover:text-charcoal transition-all">
+            Ver todos
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="container py-20 text-center max-w-3xl">
+    <h2 class="font-heading text-3xl md:text-4xl text-cream">El arte de la luthería</h2>
+    <p class="mt-6 text-cream/60 leading-relaxed text-lg font-light">
+      Detrás de cada instrumento hay horas de dedicación, el canto de la gubia sobre la madera,
+      el aroma del barniz y la emoción del primer acorde. Te invito a conocer mi taller
+      y el proceso de creación de cada pieza.
+    </p>
+    <a href="/workshop" class="inline-block mt-8 px-8 py-3 border border-amber text-amber text-sm uppercase tracking-widest hover:bg-amber hover:text-charcoal transition-all">
+      Ver el taller
+    </a>
   </section>
 
-  <section class="container py-20 text-center">
-    <h2 class="font-heading text-3xl md:text-4xl text-cream">¿Quieres aprender?</h2>
-    <p class="mt-4 text-cream/50 text-lg font-light max-w-xl mx-auto">
-      Ofrezco cursos para quienes quieran construir su propia guitarra desde cero
-    </p>
-    <a href="/courses" class="inline-block mt-8 px-8 py-3 bg-amber text-charcoal font-semibold text-sm uppercase tracking-widest hover:bg-amber/90 transition-all">
+  <section class="bg-white/5 py-20 text-center">
+    <div class="container">
+      <h2 class="font-heading text-3xl md:text-4xl text-cream">¿Quieres aprender?</h2>
+      <p class="mt-4 text-cream/50 text-lg font-light max-w-xl mx-auto">
+        Curso gratuito de 9 meses para construir tu propia guitarra desde cero. Proyecto financiado por FONDART.
+      </p>
+      <a href="/courses" class="inline-block mt-8 px-8 py-3 bg-amber text-charcoal font-semibold text-sm uppercase tracking-widest hover:bg-amber/90 transition-all">
         Ver cursos
       </a>
+    </div>
   </section>
 </BaseLayout>
