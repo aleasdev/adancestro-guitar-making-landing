@@ -3,9 +3,9 @@ title: "Tallando la tapa armónica"
 description: "El proceso de tallar la tapa armónica es uno de los momentos más importantes en la construcción de una guitarra. Cada golpe de gubia define el alma del instrumento."
 date: 2024-09-10
 images:
-  - "/images/workshop/tallando-tapa-1.svg"
-  - "/images/workshop/tallando-tapa-2.svg"
-  - "/images/workshop/tallando-tapa-3.svg"
+  - "/images/workshop/tallando-tapa-1.webp"
+  - "/images/workshop/tallando-tapa-2.webp"
+  - "/images/workshop/tallando-tapa-3.webp"
 tags:
   - "tapa armónica"
   - "tallado"

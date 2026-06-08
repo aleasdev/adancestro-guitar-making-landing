@@ -15,9 +15,7 @@ woodNotes: >
   El mástil de caoba da estabilidad y una sensación robusta y familiar al ejecutante.
   El diapasón de ébano proporciona una respuesta rápida y precisa en cada pisada, con un ataque nítido y brillante.
 images:
-  - "/images/guitars/la-romantica-1.svg"
-  - "/images/guitars/la-romantica-2.svg"
-  - "/images/guitars/la-romantica-3.svg"
+  - "/images/guitars/la-romantica-1.webp"
 featured: true
 ---
 

@@ -15,8 +15,8 @@ woodNotes: >
   El mástil de cedro mantiene la ligereza estructural necesaria para la ejecución rápida.
   El diapasón de palisandro ofrece una superficie suave y cálida al tacto, facilitando los picados rápidos.
 images:
-  - "/images/guitars/flamenca-alegria-1.svg"
-  - "/images/guitars/flamenca-alegria-2.svg"
+  - "/images/guitars/flamenca-alegria-1.webp"
+  - "/images/guitars/flamenca-alegria-2.webp"
 featured: true
 ---
 
